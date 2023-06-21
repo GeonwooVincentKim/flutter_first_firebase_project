@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:first_firebase_project/home.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:first_firebase_project/login.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,11 @@ class MainPage extends StatelessWidget {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          return LoginWidget();
+          if (snapshot.hasData) {
+            return HomePage();
+          } else {
+            return LoginWidget();
+          }
         }
       ),
     );
