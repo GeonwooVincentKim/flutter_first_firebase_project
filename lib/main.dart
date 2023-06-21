@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:first_firebase_project/auth.dart';
 import 'package:first_firebase_project/home.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:first_firebase_project/login.dart';
@@ -49,7 +50,7 @@ class MainPage extends StatelessWidget {
           } else if (snapshot.hasData) {
             return HomePage();
           } else {
-            return LoginWidget();
+            return AuthPage();
           }
         }
       ),

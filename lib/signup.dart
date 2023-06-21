@@ -3,17 +3,17 @@ import 'package:first_firebase_project/main.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class LoginWidget extends StatefulWidget {
-  final VoidCallback onClickedSignUp;
+class SignUpWidget extends StatefulWidget {
+  final Function() onClickedSignIn;
 
-  const LoginWidget({super.key, required this.onClickedSignUp});
+  const SignUpWidget({super.key, required this.onClickedSignIn});
 
   @override
-  State<LoginWidget> createState() => _LoginWidgetState();
+  State<SignUpWidget> createState() => _SignUpWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
-  final emailController = TextEditingController();
+class _SignUpWidgetState extends State<SignUpWidget> {
+ final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
@@ -31,12 +31,20 @@ class _LoginWidgetState extends State<LoginWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(height: 60),
+          FlutterLogo(size: 120),
+          SizedBox(height: 20),
+          Text(
+            "Hey There,\n Welcome back",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)
+          ),
           SizedBox(height: 40),
           TextField(
             controller: emailController,
             cursorColor: Colors.white,
             textInputAction: TextInputAction.next,
-            decoration: InputDecoration(labelText: "Enter the email")
+            decoration: InputDecoration(labelText: "Email")
           ),
           SizedBox(height: 4),
           TextField(
@@ -51,23 +59,23 @@ class _LoginWidgetState extends State<LoginWidget> {
             style: ElevatedButton.styleFrom(
               minimumSize: Size.fromHeight(50),
             ),
-            icon: Icon(Icons.lock_open, size: 32),
+            icon: Icon(Icons.arrow_forward, size: 32),
             label: Text(
-              'Sign In',
+              'Sign Up',
               style: TextStyle(fontSize: 24),
             ),
-            onPressed: signIn,
+            onPressed: signUp,
           ),
-          SizedBox(height: 24),
+          SizedBox(height: 20),
           RichText(
             text: TextSpan(
               style: TextStyle(color: Colors.white, fontSize: 20),
-              text: 'No Account?  ',
+              text: 'Already have an account?  ',
               children: [
                 TextSpan(
                   recognizer: TapGestureRecognizer()
-                    ..onTap = widget.onClickedSignUp,
-                  text: 'Sign Up',
+                    ..onTap = widget.onClickedSignIn,
+                  text: 'Log In',
                   style: TextStyle(
                     decoration: TextDecoration.underline,
                     color: Theme.of(context).colorScheme.secondary
@@ -81,20 +89,15 @@ class _LoginWidgetState extends State<LoginWidget> {
     );
   }
 
-  Future signIn() async {
+  Future signUp() async {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) => const Center(child: CircularProgressIndicator())
     );
 
-    // Need to check what is Auth stands for and how to use with it
-    // Checkout the details of User Credential meaning and how to apply it into your project
-
-    // https://www.passcamp.com/blog/what-are-login-credentials/#:~:text=A%20login%20credential%20is%20a,password%2C%20or%20simply%20account%20details.
-    // https://jins-dev.tistory.com/entry/AWS-%EC%9E%90%EA%B2%A9%EC%A6%9D%EB%AA%85Credential-%EA%B3%BC-IAM%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B8%B0%EB%B3%B8%EC%A0%95%EB%A6%AC
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim()
       );
