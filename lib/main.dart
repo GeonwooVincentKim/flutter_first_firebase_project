@@ -12,6 +12,8 @@ Future main() async {
   runApp(const MyApp());
 }
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   static final String title = 'Setup Firebase';
   const MyApp({super.key});
@@ -19,9 +21,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: title,
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData.dark().copyWith(
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)
+          .copyWith(secondary: Colors.tealAccent)
+      ),
       home: MainPage()
     );
   }
@@ -36,7 +42,11 @@ class MainPage extends StatelessWidget {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.waiting){
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Something went wront!'));
+          } else if (snapshot.hasData) {
             return HomePage();
           } else {
             return LoginWidget();
