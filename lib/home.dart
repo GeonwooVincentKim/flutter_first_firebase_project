@@ -1,71 +1,44 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-
-    super.dispose();
-  }
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // return SingleChildScrollView(
-    //   padding: EdgeInsets.all(16),
-    //   child: Column(
-    //     mainAxisAlignment: MainAxisAlignment.center,
-    //     children: [
-    //       SizedBox(height: 40),
-    //       TextField(
-    //         controller: emailController,
-    //         cursorColor: Colors.white,
-    //         textInputAction: TextInputAction.next,
-    //         decoration: InputDecoration(labelText: "Enter the email")
-    //       ),
-    //       SizedBox(height: 4),
-    //       TextField(
-    //         controller: passwordController,
-    //         cursorColor: Colors.white,
-    //         textInputAction: TextInputAction.done,
-    //         decoration: InputDecoration(labelText: "Password"),
-    //         obscureText: true,
-    //       ),
-    //       SizedBox(height: 20),
-    //       ElevatedButton.icon(
-    //         style: ElevatedButton.styleFrom(
-    //           minimumSize: Size.fromHeight(50),
-    //         ),
-    //         icon: Icon(Icons.lock_open, size: 32),
-    //         label: Text(
-    //           'Sign In',
-    //           style: TextStyle(fontSize: 24),
-    //         ),
-    //         onPressed: signIn,
-    //       )
-    //     ],
-    //   )
-    // );
-    return Container(
-      child: Text("Hello~!!")
-    );
-  }
+    final user = FirebaseAuth.instance.currentUser!;
 
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text.trim(),
-      password: passwordController.text.trim()
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Home")
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Signed In as',
+              style: TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              user.email!,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)
+            ),
+            const SizedBox(height: 40),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size.fromHeight(50)
+              ),
+              icon: const Icon(Icons.arrow_back, size: 32),
+              label: Text(
+                'Sign Out',
+                style: TextStyle(fontSize: 24),
+              ),
+              onPressed: () => FirebaseAuth.instance.signOut(),
+            )
+          ],
+        )
+      ),
     );
   }
 }
