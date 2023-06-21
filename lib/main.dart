@@ -3,6 +3,7 @@ import 'package:first_firebase_project/auth.dart';
 import 'package:first_firebase_project/home.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:first_firebase_project/login.dart';
+import 'package:first_firebase_project/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: Utils.messengerKey,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: title,
