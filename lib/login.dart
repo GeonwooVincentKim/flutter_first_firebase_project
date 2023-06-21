@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:first_firebase_project/forgot_password.dart';
 import 'package:first_firebase_project/main.dart';
+import 'package:first_firebase_project/utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +33,14 @@ class _LoginWidgetState extends State<LoginWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(height: 60),
+          FlutterLogo(size: 120),
+          SizedBox(height: 20),
+          Text(
+            "Hey There,\n Welcome back",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)
+          ),
           SizedBox(height: 40),
           TextField(
             controller: emailController,
@@ -59,6 +69,20 @@ class _LoginWidgetState extends State<LoginWidget> {
             onPressed: signIn,
           ),
           SizedBox(height: 24),
+          GestureDetector(
+            child: Text(
+              'Forgot Password?',
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 20
+              ),
+            ),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ForgotPasswordPage()
+            )),
+          ),
+          SizedBox(height: 16),
           RichText(
             text: TextSpan(
               style: TextStyle(color: Colors.white, fontSize: 20),
@@ -100,6 +124,8 @@ class _LoginWidgetState extends State<LoginWidget> {
       );
     } on FirebaseAuthException catch (e) {
       print(e);
+
+      Utils.showSnackBar(e.message);
     }
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);

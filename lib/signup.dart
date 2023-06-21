@@ -58,7 +58,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             ),
             SizedBox(height: 4),
             // Difference between TextField and TextFormField
-            // 
+            // https://stackoverflow.com/questions/54661567/what-is-the-difference-between-textformfield-and-textfield
             TextFormField(
               controller: passwordController,
               cursorColor: Colors.white,
