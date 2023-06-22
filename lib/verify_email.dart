@@ -14,6 +14,7 @@ class VerifyEmailPage extends StatefulWidget {
 
 class _VerifyEmailPageState extends State<VerifyEmailPage> {
   bool isEmailVerified = false;
+  bool canResendEmail = false;
   Timer? timer;
 
   @override
@@ -56,6 +57,10 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     try {
       final user = FirebaseAuth.instance.currentUser!;
       await user.sendEmailVerification();
+
+      setState(() => canResendEmail = false);
+      await Future.delayed(Duration(seconds: 5));
+      setState(() => canResendEmail = true);
     }  catch (e) {
       Utils.showSnackBar(e.toString());
     }
@@ -88,7 +93,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 'Resent Email',
                 style: TextStyle(fontSize: 24),
               ),
-              onPressed: sendVerificationEmail,
+              onPressed: canResendEmail ? sendVerificationEmail : null,
             )
           ],
         ),
