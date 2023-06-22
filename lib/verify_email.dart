@@ -88,7 +88,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 'Resent Email',
                 style: TextStyle(fontSize: 24),
               ),
-              onPressed: () {},
+              onPressed: sendVerificationEmail,
             )
           ],
         ),
