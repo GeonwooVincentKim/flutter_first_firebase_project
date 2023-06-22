@@ -68,5 +68,30 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       appBar: AppBar(
         title: const Text("Verify Email")
       ),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'A vertification email has been sent to your email.',
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 24),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size.fromHeight(50)
+              ),
+              icon: Icon(Icons.email, size: 32),
+              label: Text(
+                'Resent Email',
+                style: TextStyle(fontSize: 24),
+              ),
+              onPressed: () {},
+            )
+          ],
+        ),
+      ),
     );
 }
