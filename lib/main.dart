@@ -4,6 +4,7 @@ import 'package:first_firebase_project/home.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:first_firebase_project/login.dart';
 import 'package:first_firebase_project/utils.dart';
+import 'package:first_firebase_project/verify_email.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -50,7 +51,8 @@ class MainPage extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Center(child: Text('Something went wront!'));
           } else if (snapshot.hasData) {
-            return HomePage();
+            // return HomePage();
+            return VerifyEmailPage();
           } else {
             return AuthPage();
           }
