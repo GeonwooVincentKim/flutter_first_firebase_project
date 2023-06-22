@@ -94,6 +94,17 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 style: TextStyle(fontSize: 24),
               ),
               onPressed: canResendEmail ? sendVerificationEmail : null,
+            ),
+            SizedBox(height: 8),
+            TextButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size.fromHeight(50),
+              ),
+              child: Text(
+                'Cancel',
+                style: TextStyle(fontSize: 24),
+              ),
+              onPressed: () => FirebaseAuth.instance.signOut(),
             )
           ],
         ),
