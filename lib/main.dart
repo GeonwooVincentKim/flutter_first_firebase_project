@@ -18,7 +18,7 @@ Future main() async {
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
-  static final String title = 'Setup Firebase';
+  static const String title = 'Setup Firebase';
   const MyApp({super.key});
 
   @override
